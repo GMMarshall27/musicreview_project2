@@ -2,6 +2,8 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
+const db = require('./models/user');
+const PORT = process.env.PORT || 5001;
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -16,6 +18,10 @@ app.get('/login', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(3001, () => {
-    console.log('Server is starting at port', 3001);
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+db.sync({ force: true }).then(() => {
+    app.listen(PORT, () => console.log('Server is starting at ', PORT));
+  });
