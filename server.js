@@ -5,6 +5,7 @@ const exphbs = require('express-handlebars');
 const db = require('./models/user');
 const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
+// const session = require('express-session');
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -13,14 +14,26 @@ app.get('/',(req,res) => {
     res.render('index');
 });
 
+// const sess = {
+//     secret: 'Super secret secret',
+//     cookie: {},
+//     resave: false,
+//     saveUninitialized: true,
+//     store: new SequelizeStore({
+//       db: sequelize
+//     })
+//   };
+  
+//   app.use(session(sess));
+
 app.get('/login', (req, res) => {
     res.render('login');
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 sequelize.sync({ force: false }).then(() => {
