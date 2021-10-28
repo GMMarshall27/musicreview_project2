@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
+//creating user model
 const User = sequelize.define('User', {
   userId: {
     type: DataTypes.INTEGER,
