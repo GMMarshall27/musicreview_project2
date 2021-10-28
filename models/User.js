@@ -22,5 +22,12 @@ const User = sequelize.define('User', {
     validate: {
     len: [7],
     },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'user'
   }
 })
