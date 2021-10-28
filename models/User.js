@@ -23,6 +23,8 @@ const User = sequelize.define('User', {
     len: [7],
     },
   },
+},
+
   {
     sequelize,
     timestamps: false,
@@ -30,4 +32,4 @@ const User = sequelize.define('User', {
     underscored: true,
     modelName: 'user'
   }
-})
+)
