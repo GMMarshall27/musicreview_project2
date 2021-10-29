@@ -14,7 +14,7 @@ const loginForm = async function(event) {
       });
     
       if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace('/reviews');
       } else {
         alert('Failed to login');
       }
