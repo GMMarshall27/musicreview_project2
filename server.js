@@ -8,14 +8,12 @@ const sequelize = require('./config/connection');
 const router = require('./api/index');
 // const session = require('express-session');
 
-
-app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', router);
-
-app.get('/',(req,res) => {
-    res.render('index');
-});
 
 // const sess = {
 //     secret: 'Super secret secret',
@@ -26,31 +24,33 @@ app.get('/',(req,res) => {
 //       db: sequelize
 //     })
 //   };
-  
+
 //   app.use(session(sess));
 
+// app.get('/', (req, res) => {
+// 	res.render('index');
+// });
+
 app.get('/login', (req, res) => {
-    res.render('login');
+	res.render('login');
 });
 
-app.get('/signup',(req,res) => {
-    res.render('signup')
-});
+// app.get('/signup', (req, res) => {
+// 	res.render('signup');
+// });
 
-app.get('/reviews',(req,res) => {
-    res.render('reviews')
-});
+// app.get('/reviews', (req, res) => {
+// 	res.render('reviews');
+// });
 
-app.get('/new-post',(req,res) =>{
-    res.render('new-post')
-});
+// app.get('/new-post', (req, res) => {
+// 	res.render('new-post');
+// });
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(require('./controllers/'));
+// app.use(require('./controllers/'));
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
-
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Server is starting at ', PORT));
-  });
+	app.listen(PORT, () => console.log('Server is starting at ', PORT));
+});
