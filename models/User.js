@@ -33,13 +33,13 @@ const User = sequelize.define('User', {
   }
 },
 
-  {
+  
     sequelize,
     timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'User'
-  }
+}
 )
 
 module.exports = User;
