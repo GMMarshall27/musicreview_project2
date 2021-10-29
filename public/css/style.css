@@ -3,7 +3,7 @@
     --secondary: #6fcfec;
     --tertiary: #788585;
     --light-dark: #6f6866;
-    --dark: #f0ebea;
+    --dark: #f5eeee;
     --border-radius: 0.3rem;
   }
   
@@ -16,7 +16,7 @@
     margin: 0;
     padding: 0;
     font-family: "IBM Plex Sans", sans-serif;
-    color: var(--dark);
+    color: black;
     line-height: 1.5;
     font-size: 16px;
   }
@@ -29,7 +29,7 @@
   h6 {
     font-weight: 700;
     margin: 0;
-    color: var(--dark);
+    color: black;
     line-height: 1.25;
   }
   
@@ -129,7 +129,7 @@
       text-align: center;
     font-size: 3rem;
     background-color: var(--primary);
-    color: var(--dark);
+    color: black;
     padding: 0 10px;
     display: inline-block;
     border-radius: var(--border-radius);
@@ -137,7 +137,7 @@
   }
   
   .app-title a {
-    color: var(--dark);
+    color: black;
   }
 
  .carousel-item {
