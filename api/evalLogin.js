@@ -2,9 +2,13 @@ const router = require("express").Router();
 const bcrypt = require('bcrypt');
 const User = require("../models/user");
 
+router.get('/something', (req, res) => {
+  res.json("HEWWO")
+})
+
 router.post("/login", async (req, res) => {
   try {
-    console.log(body);
+    console.log(req.body);
     const userData = await User.findOne({
       where: { username: req.body.username },
     });
