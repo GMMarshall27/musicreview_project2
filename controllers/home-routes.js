@@ -1,14 +1,16 @@
 const router = require('express').Router();
-const { Post, Comment, User } = require('../models/');
+const { Post, Comment, User } = require('../models');
 
 //get all posts for homepage
 router.get('/', async (req, res) => {
-  try {
-    const postData = await Post.findAll({
-      include: [User],
-    });
-
-    const posts = postData.map((post) => post.get({ plain: true }));
+   try {
+        dataPost = await Post.findAll({
+          where:
+          { 
+          userId: req.session.userId,
+          }
+        })
+        const posts = dataPost.map((post) =>post.get({ plain: true }))
 
     res.render('all-posts', { posts });
   } catch (err) {
@@ -16,15 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// router.get('/', async (req, res) => {
-//   if {
-//     dataPost = await Post.findAll({
-//       include: [User],
-//     })
-//     const posts = dataPost.map((post) =>post.get({ plain: true }))
-    
-//   }
-// }
+
 
 
 // get single post

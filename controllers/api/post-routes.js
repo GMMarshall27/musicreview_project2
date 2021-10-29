@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post } = require('../../modules/');
+const { Post } = require('../../models/');
 const withAuth = require('../../utils/auth');
 
 //got from homework will change
