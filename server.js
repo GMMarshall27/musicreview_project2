@@ -33,14 +33,22 @@ app.get('/login', (req, res) => {
     res.render('login');
 });
 
-app.get('/signup', (req, res) => {
-    res.render('signup');
+app.get('/signup',(req,res) => {
+    res.render('signup')
+});
+
+app.get('/reviews',(req,res) => {
+    res.render('reviews')
+});
+
+app.get('/new-post',(req,res) =>{
+    res.render('new-post')
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(require('./controllers/'));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 
 sequelize.sync({ force: false }).then(() => {

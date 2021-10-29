@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
+//creating user model
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER,
@@ -21,7 +22,7 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-    len: [7],
+      len: [7],
     },
   },
 },
@@ -32,12 +33,12 @@ const User = sequelize.define('User', {
   }
 },
 
-  
-  sequelize,
-  timestamps: false,
-  freezeTableName: true,
-  underscored: true,
-  modelName: 'user'
+  {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'User'
   }
 )
 
