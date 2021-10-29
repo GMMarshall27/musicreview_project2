@@ -5,10 +5,13 @@ const exphbs = require('express-handlebars');
 const db = require('./models/user');
 const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
+const router = require('./api/index');
 // const session = require('express-session');
+
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+app.use('/api', router);
 
 app.get('/',(req,res) => {
     res.render('index');
