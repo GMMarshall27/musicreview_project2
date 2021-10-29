@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const bcrypt = require('bcrypt');
 const User = require("../models/user");
 
 router.post("/login", async (req, res) => {
@@ -7,7 +8,10 @@ router.post("/login", async (req, res) => {
     const userData = await User.findOne({
       where: { username: req.body.username },
     });
-    const validPass = await userData.checkPassword(req.body.password);
+    const validPass = await bcrypt.compare(
+      req.body.password,
+      userData.password
+    );
 console.log(userData);
 console.log(validPass);
     // if (!userData || !validPass) {
