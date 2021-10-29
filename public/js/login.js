@@ -3,7 +3,8 @@ const loginForm = async function (event) {
 
   const username = document.querySelector("#username-input-login");
   const password = document.querySelector("#password-input-login");
-
+  console.log(username);
+  console.log(password);
   const response = await fetch("/api/users/login", {
     method: "POST",
     body: JSON.stringify({
