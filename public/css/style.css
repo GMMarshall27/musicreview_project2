@@ -139,6 +139,10 @@
   .app-title a {
     color: var(--dark);
   }
+
+ .carousel-item {
+   text-align: center;
+ }
   
   .list-group {
     padding: 1%;
