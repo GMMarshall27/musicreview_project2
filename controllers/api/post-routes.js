@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 //changed
 router.post('/', withAuth, async (req, res) => {
   try {
-    const  makePost = await Post.create({
+    const makePost = await Post.create({
       ...req.body,
       ...req.image,
       user_id: req.session.user_id,
@@ -27,7 +27,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     });
 
     if(!postData) {
-      res.status(404).json({ message: "No review is found with this id. Please try again!"});
+      res.status(404).json({ message: "No review is found with this id. Please try again!" });
       return;
     }
 
