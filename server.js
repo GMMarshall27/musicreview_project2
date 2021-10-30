@@ -6,7 +6,7 @@ const db = require('./models/user');
 const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
 const router = require('./api/index');
-// const session = require('express-session');
+const session = require('express-session');
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
@@ -15,17 +15,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', router);
 
-// const sess = {
-//     secret: 'Super secret secret',
-//     cookie: {},
-//     resave: false,
-//     saveUninitialized: true,
-//     store: new SequelizeStore({
-//       db: sequelize
-//     })
-//   };
+const sess = {
+    secret: 'Super secret secret',
+    cookie: {},
+    resave: false,
+    saveUninitialized: true,
+    store: new SequelizeStore({
+      db: sequelize
+    })
+  };
 
-//   app.use(session(sess));
+  app.use(session(sess));
 
  app.get('/', (req, res) => { 	res.render('index');
  });
