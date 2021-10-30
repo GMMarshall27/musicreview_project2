@@ -1,71 +1,72 @@
-const router = require("express").Router();
-const bcrypt = require("bcrypt");
-const User = require("../models/user");
+const router = require('express').Router();
+const { User } = require('../../models');
 
-router.post("/login", async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    console.log(req.body);
-    const userData = await User.findOne({
-      where: { username: req.body.username },
+    const newUser = await User.create({
+      username: req.body.username,
+      password: req.body.password,
     });
-    const validPass = await bcrypt.compare(
-      req.body.password,
-      userData.password
-    );
-    console.log(userData);
-    console.log(validPass);
-    if (!userData || !validPass) {
-      res
-        .status(400)
-        .json({ message: "Incorrect email or password, please try again" });
-      return;
-    }
-    res.json({ user: userData, message: "Logged in..." });
 
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+    req.session.save(() => {
+      req.session.userId = newUser.id;
+      req.session.username = newUser.username;
+      req.session.loggedIn = true;
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+      res.json(newUser);
+    });
   } catch (err) {
-    res.status(400).json(err);
+    res.status(500).json(err);
   }
 });
 
-router.post("/signup", async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
-    console.log(req.body);
-    const userData = await User.findOne({
-      where: { username: req.body.username },
-    });
-
-    console.log(userData);
-
-    if (userData == req.body.username) {
-      res
-        .status(400)
-        .json({ message: "Username already taken, try another one" });
-      return;
-    } else {
-      User.create({
+    const user = await User.findOne({
+      where: {
         username: req.body.username,
-        password: req.body.password,
-      });
-      res.json({ user: userData, message: "Created new account" });
-    }
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+      },
+    });
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+    if (!user) {
+      res.status(400).json({ message: 'No user account found!' });
+      return;
+    }
+
+    const validPassword = user.checkPassword(req.body.password);
+
+    if (!validPassword) {
+      res.status(400).json({ message: 'No user account found!' });
+      return;
+    }
+
+    req.session.save(() => {
+      req.session.userId = user.id;
+      req.session.username = user.username;
+      req.session.loggedIn = true;
+
+      res.json({ user, message: 'You are now logged in!' });
+    });
   } catch (err) {
-    console.log("ERROR", err);
-    res.status(400).json(err);
+    res.status(400).json({ message: 'No user account found!' });
   }
 });
 
-router.post('/loggedOut', )
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 
 module.exports = router;
+
+//const router = require('express').Router();
+//const { User } = require('../../models');
+
+//router.get('/', )
+
+//module.exports = router;

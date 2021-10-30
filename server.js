@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', router);
 
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 const sess = {
     secret: 'Super secret secret',
     cookie: {},
