@@ -4,13 +4,13 @@ const withAuth = require('../utils/auth');
 
 router.get('/', withAuth, async (req, res) => {
   try {
-    const postData = await Post.findAll({
+    const dataPost = await Post.findAll({
       where: {
         userId: req.session.userId,
       },
     });
 
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const posts = dataPost.map((post) => post.get({ plain: true }));
 
     res.render('all-posts-admin', {
       layout: 'reviews',
@@ -29,10 +29,10 @@ router.get('/new', withAuth, (req, res) => {
 
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id);
+    const dataPost = await Post.findByPk(req.params.id);
 
-    if (postData) {
-      const post = postData.get({ plain: true });
+    if (dataPost) {
+      const post = dataPost.get({ plain: true });
 
       res.render('edit-post', {
         layout: 'reviews',
