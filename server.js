@@ -27,29 +27,28 @@ app.use('/api', router);
 
 //   app.use(session(sess));
 
-// app.get('/', (req, res) => {
-// 	res.render('index');
-// });
+app.get('/', (req, res) => {
+	res.render('index');
+});
 
 app.get('/login', (req, res) => {
 	res.render('login');
 });
 
-// app.get('/signup', (req, res) => {
-// 	res.render('signup');
-// });
+app.get('/signup', (req, res) => {
+	res.render('signup');
+});
 
-// app.get('/reviews', (req, res) => {
-// 	res.render('reviews');
-// });
+app.get('/reviews', (req, res) => {
+	res.render('reviews');
+});
 
-// app.get('/new-post', (req, res) => {
-// 	res.render('new-post');
-// });
+app.get('/new-post', (req, res) => {
+	res.render('new-post');
+});
 
-// app.use(require('./controllers/'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(require('./controllers/'));
+
 
 sequelize.sync({ force: false }).then(() => {
 	app.listen(PORT, () => console.log('Server is starting at ', PORT));

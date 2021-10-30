@@ -1,15 +1,16 @@
 const signupForm = async function (event) {
     event.preventDefault();
   
-    const username = document.querySelector("#username-input-signup");
-    const password = document.querySelector("#password-input-signup");
+    const username = document.querySelector("#username-input-signup").value.trim();
+    const password = document.querySelector("#password-input-signup").value.trim();
     console.log(username);
     console.log(password);
-    const response = await fetch("/api/users/signup", {
-      method: "POST",
+    if (username && password) {
+    const response = await fetch('/api/users/signup', {
+      method: 'POST',
       body: JSON.stringify({
-        username: username.value,
-        password: password.value,
+        username,
+        password,
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -19,6 +20,7 @@ const signupForm = async function (event) {
     } else {
       alert("Issue with Signup");
     }
+  }  
   };
   
   document.querySelector("#signup-form").addEventListener("submit", signupForm);
