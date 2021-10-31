@@ -8,6 +8,9 @@ const sequelize = require('./config/connection');
 const router = require('./controllers/index');
 const session = require('express-session');
 
+app.use(session(sess));
+
+
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(express.json());
@@ -27,7 +30,7 @@ const sess = {
     })
   };
 
-  app.use(session(sess));
+  
 
  app.get('/', (req, res) => { 	res.render('index');
  });
