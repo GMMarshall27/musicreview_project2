@@ -2,54 +2,51 @@ const router = require('express').Router();
 const { Post } = require('../../models/');
 const withAuth = require('../../utils/auth');
 
-//got from homework will change
+//changed
 router.post('/', withAuth, async (req, res) => {
-    const body = req.body;
-    const image = req.image;
-  
-    try {
-      const newPost = await Post.create({ ...body, ...image, userId: req.session.userId });
-      res.json(newPost);
-    } catch (err) {
-      res.status(500).json(err);
+  try {
+    const  makePost = await Post.create({
+      ...req.body,
+      ...req.image,
+      user_id: req.session.user_id,
+    });
+
+    res.status(200).json(makePost);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+})
+
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const postData = await Post.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if(!postData) {
+      res.status(404).json({ message: "No review is found with this id. Please try again!"});
+      return;
     }
-  });
-  
-  router.put('/:id', withAuth, async (req, res) => {
-    try {
-      const [affectedRows] = await Post.update(req.body, {
-        where: {
-          id: req.params.id,
-        },
-      });
-  
-      if (affectedRows > 0) {
-        res.status(200).end();
-      } else {
-        res.status(404).end();
-      }
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
-  
-  router.delete('/:id', withAuth, async (req, res) => {
-    try {
-      const [affectedRows] = Post.destroy({
-        where: {
-          id: req.params.id,
-        },
-      });
-  
-      if (affectedRows > 0) {
-        res.status(200).end();
-      } else {
-        res.status(404).end();
-      }
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  });
+
+    res.status(200).json(postData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put('/:id', withAuth, async (req, res) => {
+  Post.findByIdAndUpdate(req.params.id, req.body)
+    .then(post => {
+      res.redirect(`/${post.user_id}`)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+
+})
   
 
 module.exports = router;
