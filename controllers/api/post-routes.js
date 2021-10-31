@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { Post } = require('../../models/');
 const withAuth = require('../../utils/auth');
+const multer = require('multer');
+const upload = multer({dest: '/uploads/'});
 
 //changed
 router.post('/', withAuth, async (req, res) => {
