@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 const db = require('./models/user');
 const PORT = process.env.PORT || 3001;
 const sequelize = require('./config/connection');
-const router = require('./controllers/index');
+const router = require('./controllers/api/index');
 const session = require('express-session');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -20,14 +20,16 @@ const sess = {
     })
   };
 
-  app.use(session(sess));
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/controllers', router);
+app.use('/api', router);
+
+
+
+  app.use(session(sess));
 
  app.get('/', (req, res) => { 	res.render('index');
  });
