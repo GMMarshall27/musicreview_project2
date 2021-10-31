@@ -22,12 +22,12 @@ router.post("/login", async (req, res) => {
     }
     res.json({ user: userData, message: "Logged in..." });
 
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+    req.session.save(() => {
+      req.session.id = userData.id;
+      req.session.loggedIn = true;
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+      res.json({ user: userData, message: 'You are now logged in!' });
+    });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -53,17 +53,31 @@ router.post("/signup", async (req, res) => {
         password: req.body.password,
       });
       res.json({ user: userData, message: "Created new account" });
-    }
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+    
+    req.session.save(() => {
+      req.session.id = userData.id;
+      req.session.loggedIn = true;
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+      res.json({ user: userData, message: 'You are now logged in!' });
+    })};
   } catch (err) {
     console.log("ERROR", err);
     res.status(400).json(err);
   }
 });
+
+router.delete('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Unable to log out')
+      } else {
+        res.send('Logout successful')
+      }
+    });
+  } else {
+    res.end()
+  }
+})
 
 module.exports = router;
