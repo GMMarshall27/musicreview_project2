@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const { Post } = require('../../models/');
 const withAuth = require('../../utils/auth');
+const multer = require('multer');
+const upload = multer({dest: '/uploads/'});
 
 //changed
 router.post('/', withAuth, async (req, res) => {
   try {
-    const  makePost = await Post.create({
+    const makePost = await Post.create({
       ...req.body,
       ...req.image,
-      user_id: req.session.user_id,
+      user_id: req.session.user_id
     });
 
     res.status(200).json(makePost);
@@ -27,7 +29,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     });
 
     if(!postData) {
-      res.status(404).json({ message: "No review is found with this id. Please try again!"});
+      res.status(404).json({ message: "No review is found with this id. Please try again!" });
       return;
     }
 
