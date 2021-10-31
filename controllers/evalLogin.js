@@ -2,7 +2,6 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
-
 router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
@@ -20,14 +19,14 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
       return;
-    } 
-    
-      console.log('Hooray!!!!');
-      req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.loggedIn = true;
+    }
 
-      res.json({ user: userData, message: 'You are now logged in!' });
+    console.log("Hooray!!!!");
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.loggedIn = true;
+
+      res.json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -53,32 +52,32 @@ router.post("/signup", async (req, res) => {
         username: req.body.username,
         password: req.body.password,
       });
-      res.json({ user: userData, message: "Created new account" });
-    
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.loggedIn = true;
+      // res.json({ user: userData, message: "Created new account" });
 
-      res.json({ user: userData, message: 'You are now logged in!' });
-    })};
+      req.session.save(() => {
+        req.session.loggedIn = true;
+        // req.session.user_id = userData.id;
+        res.json({ user: userData, message: "You are now logged in!" });
+      });
+    }
   } catch (err) {
     console.log("ERROR", err);
     res.status(400).json(err);
   }
 });
 
-router.delete('/logout', (req, res) => {
+router.delete("/logout", (req, res) => {
   if (req.session) {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
       if (err) {
-        res.status(400).send('Unable to log out')
+        res.status(400).send("Unable to log out");
       } else {
-        res.send('Logout successful')
+        res.send("Logout successful");
       }
     });
   } else {
-    res.end()
+    res.end();
   }
-})
+});
 
 module.exports = router;
