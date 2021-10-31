@@ -23,9 +23,9 @@ router.post("/login", async (req, res) => {
     } 
     
       console.log('Hooray!!!!');
-    req.session.save(() => {
-      req.session.userId = userData.id;
-      req.session.loggedIn = true;
+      req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.loggedIn = true;
 
       res.json({ user: userData, message: 'You are now logged in!' });
     });
@@ -56,7 +56,7 @@ router.post("/signup", async (req, res) => {
       res.json({ user: userData, message: "Created new account" });
     
     req.session.save(() => {
-      req.session.id = userData.id;
+      req.session.user_id = userData.id;
       req.session.loggedIn = true;
 
       res.json({ user: userData, message: 'You are now logged in!' });
