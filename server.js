@@ -53,6 +53,8 @@ app.get("/new-post", (req, res) => {
 
 app.use(require("./controllers/"));
 
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log("Server is starting at ", PORT));
+
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
+  sequelize.sync({ force: false });
 });
