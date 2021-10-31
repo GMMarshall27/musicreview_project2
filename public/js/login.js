@@ -6,7 +6,7 @@ const loginForm = async function (event) {
 	console.log(username);
 	console.log(password);
 	if (username && password) {
-		const response = await fetch('/api/users/login', {
+		const response = await fetch('/controllers/users/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				username,
