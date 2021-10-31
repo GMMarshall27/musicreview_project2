@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 
+
 router.post("/login", async (req, res) => {
   try {
     console.log(req.body);
@@ -22,12 +23,12 @@ router.post("/login", async (req, res) => {
     }
     res.json({ user: userData, message: "Logged in..." });
 
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+     req.session.save(() => {
+      req.session.id = userData.id;
+      req.session.logged = true;
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+       res.json({ user: userData, message: 'You are now logged in!' });
+     });
   } catch (err) {
     res.status(400).json(err);
   }
@@ -54,17 +55,19 @@ router.post("/signup", async (req, res) => {
       });
       res.json({ user: userData, message: "Created new account" });
     }
-    // req.session.save(() => {
-    //   req.session.id = userData.id;
-    //   req.session.logged_in = true;
+     req.session.save(() => {
+       req.session.id = userData.id;
+      req.session.logged = true;
 
-    //   res.json({ user: userData, message: 'You are now logged in!' });
-    // });
+       res.json({ user: userData, message: 'You are now logged in!' });
+     });
   } catch (err) {
     console.log("ERROR", err);
     res.status(400).json(err);
   }
 });
+
+module.exports = router;
 // const router = require('express').Router();
 // const { User } = require('../../models');
 
@@ -130,4 +133,10 @@ router.post("/signup", async (req, res) => {
 // });
 
 
-module.exports = router;
+
+//const router = require('express').Router();
+//const { User } = require('../../models');
+
+//router.get('/', )
+
+//module.exports = router;
