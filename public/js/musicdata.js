@@ -79,12 +79,12 @@
 //     }
 //     )
 
-const getData = () => {$.ajax({
-    url: 'https://musicbrainz.org/ws/2/release/f03aea17-4d32-43dd-9b29-336d4af7a373/cover-art',
-    method: 'GET',
-}).then(function(response) {
-    console.log(response);
-});
+// const getData = () => {$.ajax({
+//     url: 'https://musicbrainz.org/ws/2/release/f03aea17-4d32-43dd-9b29-336d4af7a373/cover-art',
+//     method: 'GET',
+// }).then(function(response) {
+//     console.log(response);
+// });
 
-}
-getData();
+// }
+// getData();
