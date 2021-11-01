@@ -27,23 +27,6 @@ router.get('/new', withAuth, (req, res) => {
   });
 });
 
-router.get('/edit/:id', withAuth, async (req, res) => {
-  try {
-    const dataPost = await Post.findByPk(req.params.id);
 
-    if (dataPost) {
-      const post = dataPost.get({ plain: true });
-
-      res.render('edit-post', {
-        layout: 'reviews',
-        post,
-      });
-    } else {
-      res.status(404).end();
-    }
-  } catch (err) {
-    res.redirect('login');
-  }
-});
 
 module.exports = router;
