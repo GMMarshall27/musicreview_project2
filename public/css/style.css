@@ -126,14 +126,20 @@
   }
   
   .app-title {
-      text-align: center;
+    margin-left: 31rem;
     font-size: 3rem;
     background-color: var(--primary);
     color: black;
     padding: 0 10px;
     display: inline-block;
   }
-  
+  .app-review{
+  font-size: 3rem;
+    background-color: var(--primary);
+    color: black;
+    padding: 0 10px;
+    display: inline-block;
+  }
   .app-title a {
     color: black;
   }
