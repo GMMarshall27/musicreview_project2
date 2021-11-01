@@ -132,8 +132,6 @@
     color: black;
     padding: 0 10px;
     display: inline-block;
-    border-radius: var(--border-radius);
-    box-shadow: 6px 5px var(--light-dark);
   }
   
   .app-title a {
